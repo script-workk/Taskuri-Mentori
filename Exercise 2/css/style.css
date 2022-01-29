@@ -1,0 +1,141 @@
+body {
+  margin: 0;
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.aplication-block {
+  width: 350px;
+  background: #FCFEFD;
+  -webkit-box-shadow: 3px 3px 8px 0px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 3px 3px 8px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: 3px 3px 8px 0px rgba(34, 60, 80, 0.2);
+  border-radius: 3px;
+}
+
+.aplication-block ul {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0;
+  border-top: 1px solid #d2d2d2;
+  margin-bottom: 3px;
+}
+
+.aplication-block ul li {
+  list-style: none;
+  display: inline-block;
+  padding: 10px 0;
+  font-size: 50px;
+  color: #666C69;
+}
+
+.bottom-bar {
+  content: '';
+  height: 10px;
+  width: 50%;
+  display: block;
+  background: #EBECE9;
+  border-radius: 3px;
+  position: relative;
+  bottom: 0;
+  margin: 0 auto 5px;
+}
+
+.bottom-bar.middle {
+  width: 40%;
+}
+
+.aplication-content {
+  height: 250px;
+  overflow: hidden;
+  position: relative;
+}
+
+.dot.active {
+  transform: scale(1.1);
+  transition: .5s;
+  filter: opacity(.8);
+}
+
+.slide-container {
+  text-align: center;
+}
+
+.slide .svg-inline--fa {
+  height: 80px;
+  width: 80px;
+}
+
+
+
+
+/* .slider-container {
+    width: 800px;
+    height: 500px;
+    overflow: hidden;
+    border: 5px solid black;
+    position: relative;
+  } */
+/* 
+.slider-innerContainer {
+  transition: left 0.8s ease-out;
+  display: flex;
+  position: relative;
+  height: 100%;
+}
+
+.slider-innerContainer>* {
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.slider-innerContainer>* img {
+  width: 100%;
+  height: 100%;
+} */
+
+.slider-dots {
+  position: absolute;
+  text-align: center;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  color: red;
+}
+
+.slider-dots span {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+}
+
+.link-html,
+.link-css,
+.link-js {
+  height: 40px;
+  width: 40px;
+  display: inline-block;
+  cursor: pointer;
+  filter: opacity(0.6);
+}
+
+.link-html {
+  background: url(../img/html5-brands.svg) center no-repeat;
+}
+
+.link-css {
+  background: url(../img/css3-alt-brands.svg) center no-repeat;
+}
+
+.link-js {
+  background: url(../img/js-brands.svg) center no-repeat;
+}
+
+.slide-container .slide.fade {
+  animation: fade 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
