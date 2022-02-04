@@ -1,0 +1,218 @@
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: sans-serif;
+}
+
+.container {
+  width: 800px;
+  text-align: center;
+  position: relative;
+  -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  border-radius: 10px;
+  background: #FEFDFE;
+}
+
+.account-block {
+  display: flex;
+  overflow: hidden;
+}
+
+.sign-in-block,
+.create-account-block {
+  width: 400px;
+}
+
+.container ul {
+  padding-left: 0;
+}
+
+.container ul li {
+  list-style: none;
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.container ul li a {
+  width: 45px;
+  height: 45px;
+  border: 1px solid #E6E2E4;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: #2E3338;
+}
+
+.container h2 {
+  font-size: 37px;
+  color: #010000;
+  font-weight: 900;
+  margin-bottom: 30px;
+}
+
+.container form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container form input {
+  width: 70%;
+  height: 40px;
+  font-size: 15px;
+  padding-left: 10px;
+  background: #EDECEE;
+  border: none;
+  margin-bottom: 20px;
+  cursor: context-menu;
+}
+
+.container p {
+  color: #2E3338;
+}
+
+.container .submit-btn {
+  background: #FE4459;
+  color: #ffffff;
+  display: inline-block;
+  padding: 13px 45px;
+  border: 1px solid #D2625B;
+  border-radius: 50px;
+  width: auto;
+  font-size: 15px;
+  height: auto;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.content-block {
+  position: relative;
+}
+
+.gradient-block {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 800px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  justify-content: center;
+  background: rgb(254, 76, 40);
+  background: linear-gradient(90deg, rgba(254, 76, 40, 1) 0%, rgba(254, 65, 106, 1) 100%);
+}
+
+.welcome-block,
+.hello-block {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome-block,
+.hello-block,
+.sign-in-block,
+.create-account-block,
+.swipe,
+.move-right,
+.move-left,
+.gradient-block {
+  transition: .5s;
+}
+
+.welcome-block {
+  transform: translateY(0);
+}
+
+.hello-block {
+  transform: translateY(200px);
+}
+
+.bg-block {
+  background: #FEFDFE;
+  z-index: 7;
+}
+
+.sign-in-block {
+  z-index: 6;
+  background: #FEFDFE;
+  transform: translateY(400px);
+  height: 100%;
+}
+
+.create-account-block {
+  transform: translateX(0px);
+  z-index: 5;
+}
+
+.welcome-block h2,
+.welcome-block p,
+.hello-block h2,
+.hello-block p {
+  color: #ffffff;
+}
+
+.gradient-block button {
+  background: transparent;
+  padding: 15px 55px;
+  border: 1px solid #fed7e5;
+  border-radius: 50px;
+  color: #fed7e5;
+  font-size: 18px;
+  margin-top: 25px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.gradient-block p {
+  font-size: 21px;
+  color: #fed7e5;
+}
+
+.swipe {
+  display: block;
+  height: 100%;
+  width: 50%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  z-index: 99;
+}
+
+.test-block {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.ripple {
+  width: 10px;
+  height: 10px;
+  background-color: transparent;
+  position: fixed;
+  border-radius: 50%;
+  border: 1px solid #ff0000;
+  z-index: 9999;
+}
+
+@keyframes ripple-effect {
+  to {
+     transform:scale(5);
+     opacity: 0.01;
+  }
+}
