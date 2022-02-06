@@ -39,11 +39,11 @@
               <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
             </ul>
             <p>or use your account</p>
-            <form>
-              <input type="text" id="sname" name="email" placeholder="Email">
-              <input type="text" id="smail" name="password" placeholder="Password">
+            <form id="log_in">
+              <input type="email" id="smail" name="email" placeholder="Email">
+              <input type="password" id="spass" name="password" placeholder="Password">
               <p>Forgout your password?</p>
-              <input class="submit-btn" type="submit" value="Sign In">
+              <div id="login" class="submit-btn" type="submit">Sign In</div>
             </form>
           </div>
         </div>
@@ -55,17 +55,21 @@
             <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
           </ul>
           <p>or use email for registration</p>
-          <form>
-            <input type="text" id="cname" name="name" placeholder="Name">
-            <input type="text" id="cname" name="email" placeholder="Email">
-            <input type="text" id="cpass" name="password" placeholder="Password">
-            <input class="submit-btn" type="submit" value="Sign Up">
+          <form id="create_user">
+            <input type="text" id="cname" name="name" placeholder="Name" >
+            <input type="email" id="cmail" name="email" placeholder="Email" >
+            <input type="password" id="cpass" name="password" placeholder="Password" >
+            <div id="sign" class="submit-btn" type="submit">Sign Up</div>
           </form>
         </div>
       </div>
     </div>
   </div>
   <div class="cursor"></div>
+  <div class="alert">
+    <p class="alert-mesage">test</p>
+    <button class="ok">Ok</button>
+  </div>
 
   <script src="js/main.js"></script>
   <script src="js/all.min.js"></script>

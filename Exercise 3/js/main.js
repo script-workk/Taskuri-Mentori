@@ -41,3 +41,62 @@ const applyCursorRippleEffect = (e) => {
   ripple.style.animation = "ripple-effect .2s  linear";
   ripple.onanimationend = () => document.body.removeChild(ripple);
 };
+
+const inputLogin = document.querySelectorAll("#log_in input");
+const inputCreate = document.querySelectorAll("#create_user input");
+const logIn = document.querySelector("#log_in");
+const btnSign = document.querySelector("#sign");
+const btnLogIn = document.querySelector("#login");
+const cname = document.querySelector("#cname");
+const cmail = document.querySelector("#cmail");
+const cpass = document.querySelector("#cpass");
+
+const alert = document.querySelector(".alert");
+const alertMesage = document.querySelector(".alert-mesage");
+const okBtn = document.querySelector(".ok");
+
+const users = [];
+
+btnSign.addEventListener("click", () => {
+  inputCreate.forEach((item) => {
+    if (item.value === "") {
+      item.style.outline = "auto #ff0000";
+    } else {
+      item.style.outline = "auto #008000";
+    }
+  });
+
+  if (cname.value !== "" && cmail.value !== "" && cpass.value !== "") {
+    const createUser = (name, email, pass) => {
+      const newUser = {
+        name: name,
+        email: email,
+        pass: pass,
+      };
+      users.push(newUser);
+      alert.style.display = "block";
+      alertMesage.textContent = "Felicitari, ai creat un cont nou!";
+    };
+    createUser(cname.value, cmail.value, cpass.value);
+  }
+});
+
+okBtn.addEventListener("click", () => {
+  alert.style.display = "none";
+  alertMesage.textContent = "";
+});
+
+const smail = document.querySelector("#smail");
+const spass = document.querySelector("#spass");
+
+btnLogIn.addEventListener("click", () => {
+  users.forEach((user) => {
+    if (smail.value === user.email && spass.value === user.pass) {
+      alert.style.display = "block";
+      alertMesage.textContent = "Felicitari, te-ai logat cu succes!";
+    } else {
+      alert.style.display = "block";
+      alertMesage.textContent = "Ups, ai introdus date gresite!";
+    }
+  });
+});
