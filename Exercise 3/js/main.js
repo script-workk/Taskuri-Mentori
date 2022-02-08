@@ -6,67 +6,108 @@ const welcomeBlock = document.querySelector(".welcome-block");
 const helloBlock = document.querySelector(".hello-block");
 const signInBlock = document.querySelector(".sign-in-block");
 const createAccountBlock = document.querySelector(".create-account-block");
+const inputCreate = document.querySelectorAll("#create_user input");
+const btnSign = document.querySelector("#sign");
+const btnLogIn = document.querySelector("#login");
+const createName = document.querySelector("#createName");
+const createMail = document.querySelector("#createMail");
+const createPass = document.querySelector("#createPass");
+const alert = document.querySelector(".alert");
+const alertMesage = document.querySelector(".alert-mesage");
+const okBtn = document.querySelector(".ok");
+const signMail = document.querySelector("#signMail");
+const signPass = document.querySelector("#signPass");
+const errorEmail = document.querySelector(".error-email");
+
+const users = [];
+const pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
 
 moveRight.addEventListener("click", () => {
-  swipe.style.right = "0";
-  swipe.style.left = "400px";
-  gradientBlock.style.left = "-400px";
-  welcomeBlock.style.transform = "translateY(-200px)";
-  helloBlock.style.transform = "translateY(0px)";
-  signInBlock.style.transform = "translateY(0px)";
-  createAccountBlock.style.transform = "translateX(-400px)";
+  animationStyle(
+    "0",
+    "400px",
+    "-400px",
+    "translateY(-200px)",
+    "translateY(0px)",
+    "translateY(0px)",
+    "translateX(-400px)"
+  );
 });
 
 moveLeft.addEventListener("click", () => {
-  swipe.style.left = "0";
-  swipe.style.right = "400px";
-  gradientBlock.style.left = "0";
-  welcomeBlock.style.transform = "translateY(0px)";
-  helloBlock.style.transform = "translateY(200px)";
-  signInBlock.style.transform = "translateY(400px)";
-  createAccountBlock.style.transform = "translateX(0px)";
+  animationStyle(
+    "400px",
+    "0",
+    "0",
+    "translateY(0px)",
+    "translateY(200px)",
+    "translateY(400px)",
+    "translateX(0px)"
+  );
 });
 
-document.onclick = () => applyCursorRippleEffect(event);
+const animationStyle = (
+  swipeRight,
+  swipeLeft,
+  gradientBlockLeft,
+  welcomeBlockTransform,
+  helloBlockTransform,
+  signInBlockTransform,
+  createAccountBlockTransform
+) => {
+  swipe.style.right = swipeRight;
+  swipe.style.left = swipeLeft;
+  gradientBlock.style.left = gradientBlockLeft;
+  welcomeBlock.style.transform = welcomeBlockTransform;
+  helloBlock.style.transform = helloBlockTransform;
+  signInBlock.style.transform = signInBlockTransform;
+  createAccountBlock.style.transform = createAccountBlockTransform;
+};
 
 const applyCursorRippleEffect = (e) => {
   const ripple = document.createElement("div");
-
   ripple.className = "ripple";
   document.body.appendChild(ripple);
-
   ripple.style.left = `${e.clientX - 10}px`;
   ripple.style.top = `${e.clientY - 10}px`;
-
   ripple.style.animation = "ripple-effect .2s  linear";
   ripple.onanimationend = () => document.body.removeChild(ripple);
 };
 
-const inputLogin = document.querySelectorAll("#log_in input");
-const inputCreate = document.querySelectorAll("#create_user input");
-const logIn = document.querySelector("#log_in");
-const btnSign = document.querySelector("#sign");
-const btnLogIn = document.querySelector("#login");
-const cname = document.querySelector("#cname");
-const cmail = document.querySelector("#cmail");
-const cpass = document.querySelector("#cpass");
+document.addEventListener("click", applyCursorRippleEffect);
 
-const alert = document.querySelector(".alert");
-const alertMesage = document.querySelector(".alert-mesage");
-const okBtn = document.querySelector(".ok");
+const alertFunc = (styleDisplay, textContent) => {
+  alert.style.display = styleDisplay;
+  alertMesage.textContent = textContent;
+};
 
-const users = [];
+const validateMail = () => {
+  createMail.value.match(pattern)
+    ? (errorEmail.textContent = 'Campul Email trebu sa contina "@"') // inca nu am terminat cu validarea email
+    : "null";
+};
 
 btnSign.addEventListener("click", () => {
+  validateMail();
   inputCreate.forEach((item) => {
+    const generateMesageError = (textError) => {
+      item.attributes.placeholder.value = textError;
+    };
+
     if (item.value === "") {
       item.style.outline = "auto #ff0000";
-    } else {
+      generateMesageError(`* Campul ${item.name} este obligatoriu`);
+    } else if (item.value !== "") {
       item.style.outline = "auto #008000";
+      generateMesageError("");
     }
   });
 
-  if (cname.value !== "" && cmail.value !== "" && cpass.value !== "") {
+  if (
+    createName.value !== "" &&
+    createMail.value !== "" &&
+    createPass.value !== ""
+  ) {
     const createUser = (name, email, pass) => {
       const newUser = {
         name: name,
@@ -74,29 +115,23 @@ btnSign.addEventListener("click", () => {
         pass: pass,
       };
       users.push(newUser);
-      alert.style.display = "block";
-      alertMesage.textContent = "Felicitari, ai creat un cont nou!";
+      alertFunc("block", "Felicitari, ai creat un cont nou!");
     };
-    createUser(cname.value, cmail.value, cpass.value);
+    createUser(createName.value, createMail.value, createPass.value);
   }
 });
 
 okBtn.addEventListener("click", () => {
-  alert.style.display = "none";
-  alertMesage.textContent = "";
+  alertFunc("none", "");
 });
-
-const smail = document.querySelector("#smail");
-const spass = document.querySelector("#spass");
 
 btnLogIn.addEventListener("click", () => {
   users.forEach((user) => {
-    if (smail.value === user.email && spass.value === user.pass) {
-      alert.style.display = "block";
-      alertMesage.textContent = "Felicitari, te-ai logat cu succes!";
-    } else {
-      alert.style.display = "block";
-      alertMesage.textContent = "Ups, ai introdus date gresite!";
-    }
+    signMail.value === user.email && signPass.value === user.pass
+      ? alertFunc("block", "Felicitari, te-ai logat cu succes!")
+      : alertFunc("block", "Ups, ai introdus date gresite!");
   });
 });
+
+// de optimizat codul....
+// de creat validare speciala pentru email
