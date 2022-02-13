@@ -40,7 +40,7 @@
             </ul>
             <p>or use your account</p>
             <form id="log_in">
-              <input type="email" id="signMail" name="email" placeholder="Email">
+              <input id="signMail" name="email" placeholder="Email">
               <input type="password" id="signPass" name="password" placeholder="Password">
               <p>Forgout your password?</p>
               <div id="login" class="submit-btn" type="submit">Sign In</div>
@@ -57,10 +57,12 @@
           <p>or use email for registration</p>
           <form id="create_user">
             <input type="text" id="createName" name="name" placeholder="Name">
-            <input type="email" id="createMail" name="email" placeholder="Email">
-            <span class="error-email"></span>
+            <span class="error-message"></span>
+            <input id="createMail" name="email" placeholder="Email">
+            <span class="error-message"></span>
             <input type="password" id="createPass" name="password" placeholder="Password">
-            <div id="sign" class="submit-btn" type="submit">Sign Up</div>
+            <span class="error-message"></span>
+            <button id="sign" class="submit-btn">Sign Up</button>
           </form>
         </div>
       </div>

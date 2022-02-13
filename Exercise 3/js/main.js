@@ -17,52 +17,52 @@ const alertMesage = document.querySelector(".alert-mesage");
 const okBtn = document.querySelector(".ok");
 const signMail = document.querySelector("#signMail");
 const signPass = document.querySelector("#signPass");
-const errorEmail = document.querySelector(".error-email");
+const errorMessage = document.querySelectorAll(".error-message");
 
 const users = [];
 const pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
 
+const animationLoginParams = {
+  swipeRight: "400px",
+  swipeLeft: "0",
+  gradientBlockLeft: "0",
+  welcomeBlockTransform: "translateY(0px)",
+  helloBlockTransform: "translateY(200px)",
+  signInBlockTransform: "translateY(400px)",
+  createAccountBlockTransform: "translateX(0px)",
+};
+
+const animationRegisterParams = {
+  swipeRight: "0",
+  swipeLeft: "400px",
+  gradientBlockLeft: "-400px",
+  welcomeBlockTransform: "translateY(-200px)",
+  helloBlockTransform: "translateY(0px)",
+  signInBlockTransform: "translateY(0px)",
+  createAccountBlockTransform: "translateX(-400px)",
+};
+
 moveRight.addEventListener("click", () => {
-  animationStyle(
-    "0",
-    "400px",
-    "-400px",
-    "translateY(-200px)",
-    "translateY(0px)",
-    "translateY(0px)",
-    "translateX(-400px)"
-  );
+  swipe.style.right = animationRegisterParams.swipeRight;
+  swipe.style.left = animationRegisterParams.swipeLeft;
+  gradientBlock.style.left = animationRegisterParams.gradientBlockLeft;
+  welcomeBlock.style.transform = animationRegisterParams.welcomeBlockTransform;
+  helloBlock.style.transform = animationRegisterParams.helloBlockTransform;
+  signInBlock.style.transform = animationRegisterParams.signInBlockTransform;
+  createAccountBlock.style.transform =
+    animationRegisterParams.createAccountBlockTransform;
 });
 
 moveLeft.addEventListener("click", () => {
-  animationStyle(
-    "400px",
-    "0",
-    "0",
-    "translateY(0px)",
-    "translateY(200px)",
-    "translateY(400px)",
-    "translateX(0px)"
-  );
+  swipe.style.right = animationLoginParams.swipeRight;
+  swipe.style.left = animationLoginParams.swipeLeft;
+  gradientBlock.style.left = animationLoginParams.gradientBlockLeft;
+  welcomeBlock.style.transform = animationLoginParams.welcomeBlockTransform;
+  helloBlock.style.transform = animationLoginParams.helloBlockTransform;
+  signInBlock.style.transform = animationLoginParams.signInBlockTransform;
+  createAccountBlock.style.transform =
+    animationLoginParams.createAccountBlockTransform;
 });
-
-const animationStyle = (
-  swipeRight,
-  swipeLeft,
-  gradientBlockLeft,
-  welcomeBlockTransform,
-  helloBlockTransform,
-  signInBlockTransform,
-  createAccountBlockTransform
-) => {
-  swipe.style.right = swipeRight;
-  swipe.style.left = swipeLeft;
-  gradientBlock.style.left = gradientBlockLeft;
-  welcomeBlock.style.transform = welcomeBlockTransform;
-  helloBlock.style.transform = helloBlockTransform;
-  signInBlock.style.transform = signInBlockTransform;
-  createAccountBlock.style.transform = createAccountBlockTransform;
-};
 
 const applyCursorRippleEffect = (e) => {
   const ripple = document.createElement("div");
@@ -81,44 +81,75 @@ const alertFunc = (styleDisplay, textContent) => {
   alertMesage.textContent = textContent;
 };
 
-const validateMail = () => {
-  createMail.value.match(pattern)
-    ? (errorEmail.textContent = 'Campul Email trebu sa contina "@"') // inca nu am terminat cu validarea email
-    : "null";
+const generateMessageError = (item, outlineColor) => {
+  item.style.outline = outlineColor;
 };
 
-btnSign.addEventListener("click", () => {
-  validateMail();
-  inputCreate.forEach((item) => {
-    const generateMesageError = (textError) => {
-      item.attributes.placeholder.value = textError;
-    };
+const createUser = (name, email, pass) => {
+  const newUser = {
+    name,
+    email,
+    pass,
+  };
+  users.push(newUser);
+  alertFunc("block", "Felicitari, ai creat un cont nou!");
+};
 
-    if (item.value === "") {
-      item.style.outline = "auto #ff0000";
-      generateMesageError(`* Campul ${item.name} este obligatoriu`);
-    } else if (item.value !== "") {
-      item.style.outline = "auto #008000";
-      generateMesageError("");
-    }
+const showErrorMessage = (index, input, textMess = "") => {
+  errorMessage.forEach((errorMes, idx) => {
+    if (index === idx) errorMes.textContent = textMess;
   });
+};
 
+const registerNewUsers = () => {
   if (
     createName.value !== "" &&
     createMail.value !== "" &&
     createPass.value !== ""
   ) {
-    const createUser = (name, email, pass) => {
-      const newUser = {
-        name: name,
-        email: email,
-        pass: pass,
-      };
-      users.push(newUser);
-      alertFunc("block", "Felicitari, ai creat un cont nou!");
-    };
     createUser(createName.value, createMail.value, createPass.value);
   }
+};
+
+btnSign.disabled = true;
+
+inputCreate.forEach((input, index) => {
+  input.addEventListener("input", (ev) => {
+    if (ev.target.value === "") {
+      generateMessageError(input, "auto #ff0000");
+      btnSign.disabled = true;
+      showErrorMessage(index, input, `*Campul ${input.name} este obligator!`);
+    } else if (input.value.length < 3) {
+      generateMessageError(input, "auto #ff0000");
+      showErrorMessage(
+        index,
+        input,
+        `*Campul ${input.name} trebu sa fie mai lung de 3!`
+      );
+    } else if (
+      createMail.value.length >= 3 &&
+      !createMail.value.match(pattern)
+    ) {
+      generateMessageError(input, "auto #ff0000");
+      showErrorMessage(
+        index,
+        input,
+        `*Campul ${input.name} trebu sa contina @!`
+      );
+    } else {
+      generateMessageError(input, "auto #008000");
+      showErrorMessage(index, input);
+    }
+    createName.value !== "" &&
+    createMail.value !== "" &&
+    createPass.value !== ""
+      ? (btnSign.disabled = false)
+      : null;
+  });
+});
+
+btnSign.addEventListener("click", () => {
+  registerNewUsers();
 });
 
 okBtn.addEventListener("click", () => {
@@ -132,6 +163,3 @@ btnLogIn.addEventListener("click", () => {
       : alertFunc("block", "Ups, ai introdus date gresite!");
   });
 });
-
-// de optimizat codul....
-// de creat validare speciala pentru email

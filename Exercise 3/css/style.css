@@ -70,7 +70,6 @@ body {
   padding-left: 10px;
   background: #EDECEE;
   border: none;
-  margin-bottom: 20px;
   cursor: context-menu;
 }
 
@@ -246,4 +245,26 @@ body {
   height: auto;
   text-transform: uppercase;
   cursor: pointer;
+}
+
+#sign {
+  opacity: 1;
+}
+
+#sign[disabled] {
+  opacity: .7;
+}
+
+.error-message {
+  display: block;
+  font-size: 13px;
+  color: #ff0000;
+  height: 15px;
+  margin: 2px 0 5px 0;
+  width: 70%;
+  text-align: left;
+}
+
+#log_in input {
+  margin-bottom: 20px;
 }
